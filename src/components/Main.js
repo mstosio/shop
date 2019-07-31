@@ -14,6 +14,10 @@ function Main() {
     );
   };
 
+  const addItemToCard = (e, product) => {
+    console.log('reaellly');
+  };
+
   useEffect(() => {
     getProducts();
   }, []);
@@ -21,7 +25,7 @@ function Main() {
   return (
     <>
       <Nav />
-      <Products products={products} />
+      <Products products={products} addItemToCard={addItemToCard} />
     </>
   );
 }

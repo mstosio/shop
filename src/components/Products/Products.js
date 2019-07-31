@@ -5,7 +5,7 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Product from './Product/Product';
 
-const Products = ({ products }) => (
+const Products = ({ products, addItemToCard }) => (
   <Container>
     <Row>
       <Col md={12}>
@@ -16,6 +16,7 @@ const Products = ({ products }) => (
                 title={product.title}
                 price={product.price}
                 catalognumber={product.catalognumber}
+                addItemToCard={addItemToCard}
               />
             </Col>
           ))}
@@ -29,4 +30,5 @@ export default Products;
 
 Products.propTypes = {
   products: PropTypes.array,
+  addItemToCard: PropTypes.func,
 };
