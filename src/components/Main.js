@@ -1,9 +1,7 @@
-/* eslint-disable react/no-unused-state */
-/* eslint-disable no-cond-assign */
+/* eslint-disable react-hooks/exhaustive-deps */
 
 import React, { useEffect, useState } from 'react';
 import Axios from 'axios';
-import { statement } from '@babel/template';
 import Products from './Products/Products';
 
 function Main() {
@@ -17,7 +15,7 @@ function Main() {
 
   useEffect(() => {
     getProducts();
-  }, [getProducts]);
+  }, []);
 
   return <Products products={products} />;
 }
