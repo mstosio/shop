@@ -5,30 +5,24 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Product from './Product/Product';
 
-const Products = ({ products, addItemToCard }) => (
-  <Container>
-    <Row>
-      <Col md={12}>
-        <Row>
-          {products.map(product => (
-            <Col md={4} key={product.id}>
-              <Product
-                title={product.title}
-                price={product.price}
-                catalognumber={product.catalognumber}
-                addItemToCard={addItemToCard}
-              />
-            </Col>
-          ))}
-        </Row>
+const Products = ({ products, addItemToBasket }) => (
+  <Row>
+    {products.map(product => (
+      <Col md={6} key={product.id}>
+        <Product
+          product={product}
+          title={product.title}
+          price={product.price}
+          catalognumber={product.catalognumber}
+          addItemToBasket={addItemToBasket}
+        />
       </Col>
-    </Row>
-  </Container>
+    ))}
+  </Row>
 );
-
 export default Products;
 
 Products.propTypes = {
   products: PropTypes.array,
-  addItemToCard: PropTypes.func,
+  addItemToBasket: PropTypes.func,
 };

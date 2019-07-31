@@ -2,20 +2,27 @@
 
 import React, { useEffect, useState } from 'react';
 import Axios from 'axios';
-import Products from './Products/Products';
+import Col from 'react-bootstrap/Col';
+import Container from 'react-bootstrap/Container';
+import Row from 'react-bootstrap/Row';
 import Nav from './Nav/Nav';
+import Products from './Products/Products';
+import Basket from './Basket/Basket';
 
 function Main() {
   const [products, setProducts] = useState([]);
+  const [basketItems, addItem] = useState([]);
 
   const getProducts = () => {
-    Axios.get('http://localhost:8000/products').then(reponse =>
-      setProducts(reponse.data)
+    Axios.get('http://localhost:8000/products').then(response =>
+      setProducts(response.data)
     );
   };
 
-  const addItemToCard = (e, product) => {
-    console.log('reaellly');
+  const addItemToBasket = (e, item, quantity) => {
+    console.log(products);
+    console.log(item);
+    console.log(quantity);
   };
 
   useEffect(() => {
@@ -25,7 +32,16 @@ function Main() {
   return (
     <>
       <Nav />
-      <Products products={products} addItemToCard={addItemToCard} />
+      <Container>
+        <Row>
+          <Col md={8}>
+            <Products products={products} addItemToBasket={addItemToBasket} />
+          </Col>
+          <Col md={4}>
+            <Basket basketItems={basketItems} />
+          </Col>
+        </Row>
+      </Container>
     </>
   );
 }

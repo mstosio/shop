@@ -1,22 +1,20 @@
 This project uses fake REST API [JSON-Server](https://github.com/typicode/json-server).
 
-In order to run server you need to 
+In order to start the project locally:
 
-### `json-server public/db.json`
+Run Fake API server: 
+
+### `npm run fake-server`
+
+Start the app:
+
+### `npm start`
+
+You can find the project on the http://localhost:3000/
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
-
-In the project directory, you can run:
-
-### `npm start`
-
-Runs the app in the development mode.<br>
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.<br>
 
 ### `npm run build`
 
