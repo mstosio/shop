@@ -26,6 +26,19 @@ module.exports = {
       "error",
       "except-parens"
     ],
+    "jsx-a11y/label-has-associated-control": [ 2, {
+      "labelComponents": ["CustomInputLabel"],
+      "labelAttributes": ["label"],
+      "controlComponents": ["CustomInput"],
+      "depth": 3,
+    }],
+    "jsx-a11y/label-has-for": [ 2, {
+      "components": [ "Label" ],
+      "required": {
+          "some": [ "nesting", "id" ]
+      },
+      "allowChildren": false
+  }],
     "no-restricted-syntax": [
       2,
       "ForInStatement",
@@ -33,11 +46,10 @@ module.exports = {
       "WithStatement"
     ],
     "no-unused-vars": [
-      1,
-      {
-        "ignoreSiblings": true,
-        "argsIgnorePattern": "res|next|^err"
-      }
+     0,
+     {
+      "ignoreSiblings": true
+    }
     ],
     "prefer-const": [
       "error",
