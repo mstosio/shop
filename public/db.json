@@ -2,15 +2,39 @@
     "products": [
         {
             "id": 1,
-            "title": "Thing 2",
+            "title": "Adidas Copa 19.4 TF",
             "price": 100,
-            "description": ""
+            "catalog-number": "F35483"
         },
         {
             "id": 2,
-            "title": "Thing 2",
+            "title": "Nike Tiempo Legend 7",
             "price": 155,
-            "description": ""
+            "catalog-number": "AH7242-408"
+        },
+        {
+            "id": 3,
+            "title": "Asics Gel-Hyper Tri",
+            "price": 232,
+            "catalog-number": "T531N-4930"
+        },
+        {
+            "id": 4,
+            "title": "Adidas Originals Trefoil Hoodie",
+            "price": 155,
+            "catalog-number": "DX3614"
+        },
+        {
+            "id": 5,
+            "title": "Reebok Print Lite Rush 2",
+            "price": 155,
+            "catalog-number": "CN6213"
+        },
+        {
+            "id": 6,
+            "title": "Adidas Predator 19.4 IN",
+            "price": 155,
+            "catalog-number": "BB9083"
         }
     ]
 }

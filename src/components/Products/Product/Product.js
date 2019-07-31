@@ -7,8 +7,8 @@ const Product = ({ id, title, price, desc }) => (
     <h2>{title}</h2>
     <p>{price}</p>
     <p>{desc}</p>
-    <Button variant="flat" size="xxl">
-      flat button
+    <Button variant="dark" size="xxl">
+      Add to card
     </Button>
   </div>
 );
