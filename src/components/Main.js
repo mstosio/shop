@@ -3,6 +3,7 @@
 import React, { useEffect, useState } from 'react';
 import Axios from 'axios';
 import Products from './Products/Products';
+import Nav from './Nav/Nav';
 
 function Main() {
   const [products, setProducts] = useState([]);
@@ -17,7 +18,12 @@ function Main() {
     getProducts();
   }, []);
 
-  return <Products products={products} />;
+  return (
+    <>
+      <Nav />
+      <Products products={products} />
+    </>
+  );
 }
 
 export default Main;

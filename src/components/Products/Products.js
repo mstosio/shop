@@ -8,15 +8,18 @@ import Product from './Product/Product';
 const Products = ({ products }) => (
   <Container>
     <Row>
-      <Col md={8}>
-        {products.map(product => (
-          <Product
-            key={product.id}
-            title={product.title}
-            price={product.price}
-            desc={product.desc}
-          />
-        ))}
+      <Col md={12}>
+        <Row>
+          {products.map(product => (
+            <Col md={4} key={product.id}>
+              <Product
+                title={product.title}
+                price={product.price}
+                catalognumber={product.catalognumber}
+              />
+            </Col>
+          ))}
+        </Row>
       </Col>
     </Row>
   </Container>
