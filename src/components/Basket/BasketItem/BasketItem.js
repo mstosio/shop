@@ -1,20 +1,34 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Button from 'react-bootstrap/Button';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
 import { StyledBasketItem } from './StyledBasketItem';
 
 const BasketItem = ({ title, quantity, deleteItemFromBasket, item }) => (
   <>
     <StyledBasketItem classsName="basketItem">
-      <div>{title}</div>
-      <div>{quantity}</div>
-      <Button
-        variant="danger"
-        size="sm"
-        onClick={e => deleteItemFromBasket(item)}
-      >
-        Delete Item
-      </Button>
+      <Row>
+        <Col md={5}>
+          {' '}
+          <h5>{title}</h5>
+        </Col>
+        <Col md={3}>
+          {' '}
+          <span>Quantity:</span>
+          <span>{quantity}</span>
+        </Col>
+        <Col md={4}>
+          {' '}
+          <Button
+            variant="danger"
+            size="sm"
+            onClick={e => deleteItemFromBasket(item)}
+          >
+            Delete Item
+          </Button>
+        </Col>
+      </Row>
     </StyledBasketItem>
   </>
 );

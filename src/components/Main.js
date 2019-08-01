@@ -8,10 +8,13 @@ import Row from 'react-bootstrap/Row';
 import Nav from './Nav/Nav';
 import Products from './Products/Products';
 import Basket from './Basket/Basket';
+import Payment from './Payment/Payment';
 
 function Main() {
   const [products, setProducts] = useState([]);
   const [basketItems, setItem] = useState([]);
+  const [totalCost, setTotalCost] = useState(0);
+  const [paymentMode, setPaymentMode] = useState(false);
 
   const getProducts = () => {
     Axios.get('http://localhost:8000/products').then(response =>
@@ -53,10 +56,18 @@ function Main() {
     let basketProducts = [...basketItems];
 
     basketProducts = basketProducts.filter(product => item.id !== product.id);
-    console.log(basketProducts);
-
     setItem(basketProducts);
   };
+
+  let basketButton;
+
+  if (basketItems.length >= 1 && !paymentMode) {
+    basketButton = (
+      <button type="submit" onClick={() => setPaymentMode(true)}>
+        Order
+      </button>
+    );
+  }
 
   useEffect(() => {
     getProducts();
@@ -71,10 +82,21 @@ function Main() {
             <Products products={products} addItemToBasket={addItemToBasket} />
           </Col>
           <Col md={4}>
-            <Basket
-              basketItems={basketItems}
-              deleteItemFromBasket={deleteItemFromBasket}
-            />
+            {paymentMode ? (
+              <Payment
+                basketItems={basketItems}
+                setPaymentMode={setPaymentMode}
+              />
+            ) : (
+              <Basket
+                basketItems={basketItems}
+                totalCost={totalCost}
+                setTotalCost={setTotalCost}
+                deleteItemFromBasket={deleteItemFromBasket}
+              />
+            )}
+
+            {basketButton}
           </Col>
         </Row>
       </Container>
