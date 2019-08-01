@@ -27,18 +27,23 @@ function Main() {
 
     let addToBasket = true;
 
-    if (quantity < 1) {
+    if (paymentMode) {
+      alert('First finish your current payment before adding to basket');
+      addToBasket = false;
+    }
+
+    if (quantity < 1 && !paymentMode) {
       addToBasket = false;
       alert('Eyy, you should pick at least 1 product');
     }
 
-    if (quantity > 50) {
+    if (quantity > 50 && !paymentMode) {
       addToBasket = false;
-      alert("Whoops, you can't order more then 50 prodcuts");
+      alert("Whoops, you can't more then 50 products at once");
     }
 
     basketProducts.forEach(basketProduct => {
-      if (item.id === basketProduct.id) {
+      if (item.id === basketProduct.id && !paymentMode) {
         addToBasket = false;
         item.quantity += Number(quantity);
       }
@@ -85,6 +90,7 @@ function Main() {
             {paymentMode ? (
               <Payment
                 basketItems={basketItems}
+                totalCost={totalCost}
                 setPaymentMode={setPaymentMode}
               />
             ) : (
