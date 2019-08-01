@@ -3,7 +3,7 @@
 import React, { useState, useReducer } from 'react';
 import PropTypes from 'prop-types';
 import Button from 'react-bootstrap/Button';
-import { validate } from '@babel/types';
+import { checkPostalCode, checkValidStreet } from '../../utils/Helpers';
 
 const Payment = ({ basketItems, setPaymentMode, totalCost }) => {
   const [userInput, setUserInput] = useReducer(
@@ -12,10 +12,13 @@ const Payment = ({ basketItems, setPaymentMode, totalCost }) => {
       name: '',
       surname: '',
       city: '',
-      strett: '',
+      street: '',
       postalcode: '',
       nameError: '',
       surnameError: '',
+      cityError: '',
+      streetError: '',
+      postalcodeError: '',
     }
   );
 
@@ -24,26 +27,60 @@ const Payment = ({ basketItems, setPaymentMode, totalCost }) => {
     setUserInput({ [id]: value });
   };
 
-  const validateForm = () => {
-    // const isValid = false;
-    const { name, surname, city, street, postalcode } = userInput;
-    let { nameError, surnameError } = '';
+  const validateForm = (name, surname, city, street, postalcode) => {
+    let {
+      nameError,
+      surnameError,
+      cityError,
+      streetError,
+      postalcodeError,
+    } = '';
 
     if (name === '') {
-      nameError = 'Your name is empty';
+      nameError = 'Please, provide name';
     } else {
       nameError = '';
     }
 
     if (surname === '') {
-      surnameError = 'Your name is empty';
+      surnameError = 'Please, provide surname';
     } else {
       surnameError = '';
     }
 
-    setUserInput({ nameError, surnameError });
+    if (street === '' || !checkValidStreet(street)) {
+      streetError = 'Please, provide valid Street';
+    } else {
+      streetError = '';
+    }
 
-    if (nameError || surnameError) {
+    if (city === '') {
+      cityError = 'Please, provide city';
+    } else {
+      cityError = '';
+    }
+
+    if (postalcode === '' || !checkPostalCode(postalcode)) {
+      postalcodeError = 'Please, provide valid Postal Code';
+    } else {
+      postalcodeError = '';
+    }
+
+    setUserInput({
+      nameError,
+      surnameError,
+      cityError,
+      streetError,
+      postalcodeError,
+    });
+
+    if (
+      nameError ||
+      surnameError ||
+      cityError ||
+      streetError ||
+      postalcodeError
+    ) {
       return false;
     }
 
@@ -53,7 +90,7 @@ const Payment = ({ basketItems, setPaymentMode, totalCost }) => {
   const confirmPayment = (e, items) => {
     e.preventDefault();
     const { name, surname, city, street, postalcode } = userInput;
-    validateForm();
+    validateForm(name, surname, city, street, postalcode);
 
     // if (!validateForm()) {
     //   alert(`${name} ${surname}. Your total cost of items is ${totalCost} zl`);
@@ -85,7 +122,7 @@ const Payment = ({ basketItems, setPaymentMode, totalCost }) => {
             />
           </label>
           <label htmlFor="city">
-            City
+            {userInput.cityError} City
             <input
               type="text"
               id="city"
@@ -94,7 +131,7 @@ const Payment = ({ basketItems, setPaymentMode, totalCost }) => {
             />
           </label>
           <label htmlFor="street">
-            Street
+            {userInput.streetError} Street
             <input
               type="text"
               id="street"
@@ -104,7 +141,7 @@ const Payment = ({ basketItems, setPaymentMode, totalCost }) => {
             />
           </label>
           <label htmlFor="postalcode">
-            Postal Code:
+            {userInput.postalcodeError} Postal Code:
             <input
               type="text"
               id="postalcode"
