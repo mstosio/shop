@@ -1,6 +1,7 @@
 import React, { Component, useState } from 'react';
 import PropTypes from 'prop-types';
 import Button from 'react-bootstrap/Button';
+import Alert from 'react-bootstrap/Alert';
 import BasketItem from './BasketItem/BasketItem';
 
 const Basket = ({
@@ -10,7 +11,6 @@ const Basket = ({
   setTotalCost,
 }) => {
   let basket = '';
-  let orderButton;
   let cost;
 
   if (basketItems.length >= 1) {
@@ -31,7 +31,7 @@ const Basket = ({
 
     setTotalCost(cost);
   } else {
-    basket = 'Basket is Empty';
+    basket = <Alert variant="success">Basket is Empty</Alert>;
   }
 
   return (

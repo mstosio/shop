@@ -5,6 +5,7 @@ import Axios from 'axios';
 import Col from 'react-bootstrap/Col';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
+import Button from 'react-bootstrap/Button';
 import Nav from './Nav/Nav';
 import Products from './Products/Products';
 import Basket from './Basket/Basket';
@@ -68,9 +69,9 @@ function Main() {
 
   if (basketItems.length >= 1 && !paymentMode) {
     basketButton = (
-      <button type="submit" onClick={() => setPaymentMode(true)}>
+      <Button type="submit" onClick={() => setPaymentMode(true)}>
         Order
-      </button>
+      </Button>
     );
   }
 

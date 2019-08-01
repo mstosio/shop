@@ -9,16 +9,16 @@ const BasketItem = ({ title, quantity, deleteItemFromBasket, item }) => (
   <>
     <StyledBasketItem classsName="basketItem">
       <Row>
-        <Col md={5}>
+        <Col md={8}>
           {' '}
           <h5>{title}</h5>
         </Col>
-        <Col md={3}>
+        <Col md={4}>
           {' '}
           <span>Quantity:</span>
           <span>{quantity}</span>
         </Col>
-        <Col md={4}>
+        <Col>
           {' '}
           <Button
             variant="danger"
