@@ -3,6 +3,7 @@
 import React, { useState, useReducer } from 'react';
 import PropTypes from 'prop-types';
 import Button from 'react-bootstrap/Button';
+import { validate } from '@babel/types';
 
 const Payment = ({ basketItems, setPaymentMode, totalCost }) => {
   const [userInput, setUserInput] = useReducer(
@@ -10,7 +11,11 @@ const Payment = ({ basketItems, setPaymentMode, totalCost }) => {
     {
       name: '',
       surname: '',
-      adress: '',
+      city: '',
+      strett: '',
+      postalcode: '',
+      nameError: '',
+      surnameError: '',
     }
   );
 
@@ -20,17 +25,41 @@ const Payment = ({ basketItems, setPaymentMode, totalCost }) => {
   };
 
   const validateForm = () => {
-    const { name, surname, city, street } = userInput;
+    // const isValid = false;
+    const { name, surname, city, street, postalcode } = userInput;
+    let { nameError, surnameError } = '';
+
+    if (name === '') {
+      nameError = 'Your name is empty';
+    } else {
+      nameError = '';
+    }
+
+    if (surname === '') {
+      surnameError = 'Your name is empty';
+    } else {
+      surnameError = '';
+    }
+
+    setUserInput({ nameError, surnameError });
+
+    if (nameError || surnameError) {
+      return false;
+    }
+
+    console.log('yt');
   };
 
   const confirmPayment = (e, items) => {
     e.preventDefault();
-    const { name, surname, city, street } = userInput;
-    if (!validateForm()) {
-      alert(`${name} ${surname}. Your total cost of items is ${totalCost} zl`);
-    } else {
-      alert(`Please, fill all of info`);
-    }
+    const { name, surname, city, street, postalcode } = userInput;
+    validateForm();
+
+    // if (!validateForm()) {
+    //   alert(`${name} ${surname}. Your total cost of items is ${totalCost} zl`);
+    // } else {
+    //   alert(`Please, fill all of info`);
+    // }
   };
 
   return (
@@ -38,7 +67,7 @@ const Payment = ({ basketItems, setPaymentMode, totalCost }) => {
       <div>
         <form action="" onSubmit={e => confirmPayment(e, basketItems)}>
           <label htmlFor="name">
-            Name:
+            {userInput.nameError}Name:
             <input
               type="text"
               id="name"
@@ -47,7 +76,7 @@ const Payment = ({ basketItems, setPaymentMode, totalCost }) => {
             />
           </label>
           <label htmlFor="surname">
-            Surname:
+            {userInput.surnameError}Surname:
             <input
               type="text"
               id="surname"
@@ -69,6 +98,7 @@ const Payment = ({ basketItems, setPaymentMode, totalCost }) => {
             <input
               type="text"
               id="street"
+              placeholder="ex. Street 21"
               value={userInput.street}
               onChange={handleChange}
             />
@@ -79,6 +109,7 @@ const Payment = ({ basketItems, setPaymentMode, totalCost }) => {
               type="text"
               id="postalcode"
               name="postalcode"
+              placeholder="ex. 08-103"
               value={userInput.postalcode}
               onChange={handleChange}
             />
