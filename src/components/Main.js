@@ -11,7 +11,7 @@ import Basket from './Basket/Basket';
 
 function Main() {
   const [products, setProducts] = useState([]);
-  const [basketItems, addItem] = useState([]);
+  const [basketItems, setItem] = useState([]);
 
   const getProducts = () => {
     Axios.get('http://localhost:8000/products').then(response =>
@@ -20,9 +20,42 @@ function Main() {
   };
 
   const addItemToBasket = (e, item, quantity) => {
-    console.log(products);
-    console.log(item);
-    console.log(quantity);
+    const basketProducts = [...basketItems];
+
+    let addToBasket = true;
+
+    if (quantity < 1) {
+      addToBasket = false;
+      alert('Eyy, you should pick at least 1 product');
+    }
+
+    if (quantity > 50) {
+      addToBasket = false;
+      alert("Whoops, you can't order more then 50 prodcuts");
+    }
+
+    basketProducts.forEach(basketProduct => {
+      if (item.id === basketProduct.id) {
+        addToBasket = false;
+        item.quantity += Number(quantity);
+      }
+    });
+
+    if (addToBasket) {
+      item.quantity = Number(quantity);
+      basketProducts.push(item);
+    }
+
+    setItem(basketProducts);
+  };
+
+  const deleteItemFromBasket = item => {
+    let basketProducts = [...basketItems];
+
+    basketProducts = basketProducts.filter(product => item.id !== product.id);
+    console.log(basketProducts);
+
+    setItem(basketProducts);
   };
 
   useEffect(() => {
@@ -38,7 +71,10 @@ function Main() {
             <Products products={products} addItemToBasket={addItemToBasket} />
           </Col>
           <Col md={4}>
-            <Basket basketItems={basketItems} />
+            <Basket
+              basketItems={basketItems}
+              deleteItemFromBasket={deleteItemFromBasket}
+            />
           </Col>
         </Row>
       </Container>
