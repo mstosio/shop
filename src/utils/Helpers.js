@@ -6,6 +6,6 @@ export const checkPostalCode = postalCode => {
 };
 
 export const checkValidStreet = street => {
-  const regex = /[0-9]/g;
+  const regex = /[a-z]\s[0-9]/g;
   return regex.test(street);
 };

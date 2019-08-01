@@ -1,6 +1,7 @@
 import React, { Component, useState } from 'react';
 import PropTypes from 'prop-types';
-import Button from 'react-bootstrap/Button';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
 import Alert from 'react-bootstrap/Alert';
 import BasketItem from './BasketItem/BasketItem';
 
@@ -9,9 +10,12 @@ const Basket = ({
   deleteItemFromBasket,
   totalCost,
   setTotalCost,
+  totalQuantity,
+  setTotalQuantity,
 }) => {
   let basket = '';
   let cost;
+  let basketquantity;
 
   if (basketItems.length >= 1) {
     basket = basketItems.map(item => (
@@ -29,15 +33,32 @@ const Basket = ({
       0
     );
 
+    basketquantity = basketItems.reduce(
+      (quantity, current) => quantity + current.quantity,
+      0
+    );
+
+    setTotalQuantity(basketquantity);
     setTotalCost(cost);
   } else {
+    setTotalQuantity(0);
+    setTotalCost(0);
     basket = <Alert variant="success">Basket is Empty</Alert>;
   }
 
   return (
     <>
-      <div>Total cost: {totalCost} zł</div>
-      <div>{basket}</div>
+      <Row>
+        <Col md={6}>
+          <div>Total cost: {totalCost} zł</div>
+        </Col>
+        <Col md={6}>
+          <div>Items in the basket: {totalQuantity}</div>
+        </Col>
+        <Col>
+          <div>{basket}</div>
+        </Col>
+      </Row>
     </>
   );
 };
@@ -49,4 +70,6 @@ Basket.propTypes = {
   basketItems: PropTypes.array,
   totalCost: PropTypes.number,
   setTotalCost: PropTypes.func,
+  setTotalQuantity: PropTypes.func,
+  totalQuantity: PropTypes.number,
 };

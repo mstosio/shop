@@ -15,6 +15,7 @@ function Main() {
   const [products, setProducts] = useState([]);
   const [basketItems, setItem] = useState([]);
   const [totalCost, setTotalCost] = useState(0);
+  const [totalQuantity, setTotalQuantity] = useState(0);
   const [paymentMode, setPaymentMode] = useState(false);
 
   const getProducts = () => {
@@ -93,12 +94,16 @@ function Main() {
                 basketItems={basketItems}
                 totalCost={totalCost}
                 setPaymentMode={setPaymentMode}
+                setItem={setItem}
+                totalQuantity={totalQuantity}
               />
             ) : (
               <Basket
                 basketItems={basketItems}
                 totalCost={totalCost}
                 setTotalCost={setTotalCost}
+                totalQuantity={totalQuantity}
+                setTotalQuantity={setTotalQuantity}
                 deleteItemFromBasket={deleteItemFromBasket}
               />
             )}

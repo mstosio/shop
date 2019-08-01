@@ -5,7 +5,13 @@ import Button from 'react-bootstrap/Button';
 import { checkPostalCode, checkValidStreet } from '../../utils/Helpers';
 import { StyledLabel, StyledError } from './StyledPayment';
 
-const Payment = ({ basketItems, setPaymentMode, totalCost }) => {
+const Payment = ({
+  basketItems,
+  setPaymentMode,
+  totalCost,
+  setItem,
+  totalQuantity,
+}) => {
   const [userInput, setUserInput] = useReducer(
     (state, newState) => ({ ...state, ...newState }),
     {
@@ -92,9 +98,11 @@ const Payment = ({ basketItems, setPaymentMode, totalCost }) => {
     const { name, surname, city, street, postalcode } = userInput;
 
     if (validateForm(name, surname, city, street, postalcode)) {
-      alert('validate PASSED');
-    } else {
-      alert('validate fail');
+      setItem([]);
+      setPaymentMode(false);
+      alert(
+        `${name}! Congratulations, you sucessfully ordered ${totalQuantity} products. You need to pay ${totalCost} zl.`
+      );
     }
   };
 
@@ -168,4 +176,6 @@ Payment.propTypes = {
   basketItems: PropTypes.array,
   setPaymentMode: PropTypes.func,
   totalCost: PropTypes.number,
+  setItem: PropTypes.func,
+  totalQuantity: PropTypes.number,
 };
